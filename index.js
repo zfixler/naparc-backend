@@ -6,9 +6,9 @@ const app = express()
 const port = process.env.PORT || 3000
 
 app.post('/', async (req, res) => {
-  const { APP_KEY } = process.env;
+  // const { APP_KEY } = process.env;
   const ACTION_KEY  = req.headers.authorization.split(" ")[1];
-  console.log(APP_KEY, ACTION_KEY)
+  console.log(precess.env.APP_KEY, ACTION_KEY)
 try {
   if(ACTION_KEY === APP_KEY){
     await scrapeRpcna().catch(e => console.log(e))
