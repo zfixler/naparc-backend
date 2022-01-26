@@ -124,7 +124,7 @@ async function scrapeCong(url) {
     id++;
 	
     if(congregation.lat){
-        db.updateDb(congregation).catch(e => console.log(error))
+        db.updateDb(congregation).catch(error => console.log(error))
     }
 }
 
