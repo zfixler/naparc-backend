@@ -3,9 +3,9 @@ const express = require('express')
 const { scrapeRpcna } = require('./scrapers/rpcna')
 
 const app = express()
-const port = 3000
+const port = process.env.PORT | 3000
 
-app.post('/', async (req, res) => {
+app.get('/', async (req, res) => {
   const { APP_KEY } = process.env;
   const ACTION_KEY  = req.headers.authorization.split(" ")[1];
 
