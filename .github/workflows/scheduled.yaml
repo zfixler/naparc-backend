@@ -1,0 +1,13 @@
+name: Cron Scrape
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cron Scrape
+        run: |
+          curl --request POST \
+          --url 'https://naparcsearch.com/api/scrape' \
+          --header 'Authorization: Bearer ${{ secrets.ACTION_KEY }}'
