@@ -1,6 +1,8 @@
 require('dotenv').config()
 const express = require('express')
 const { scrapeRpcna } = require('./scrapers/rpcna')
+const { scrapeArp } = require('./scrapers/arp')
+const { scrapeFrcna } = require('./scrapers/frcna')
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -11,6 +13,8 @@ app.post('/', async (req, res) => {
 try {
   if(ACTION_KEY === process.env.APP_KEY){
     await scrapeRpcna().catch(e => console.log(e))
+    await scrapeArp().catch(e => console.log(e))
+    await scrapeFrcna().catch(e => console.log(e))
     res.status(200).json({ message: 'Scrape Complete' }).end();
   } else {
     res.status(401).end()
