@@ -9,5 +9,5 @@ jobs:
       - name: Cron Scrape
         run: |
           curl --request POST \
-          --url 'https://naparcsearch.com/api/scrape' \
+          --url 'https://safe-fortress-30452.herokuapp.com/' \
           --header 'Authorization: Bearer ${{ secrets.ACTION_KEY }}'
