@@ -144,9 +144,9 @@ async function scrapeFrcna() {
 				.catch((error) => console.log(error));
 			const html = await response.data;
 			const cong = await scrapeCong(html, url);
-            
+
 			if (cong.lat !== null) {
-                db.updateDb(cong).catch((error) => console.log(error));
+				db.updateDb(cong).catch((error) => console.log(error));
 			}
 		}
 	} catch {

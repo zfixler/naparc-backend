@@ -1,6 +1,6 @@
 const cheerio = require('cheerio');
 const axios = require('axios');
-const db = require('../helpers/database')
+const db = require('../helpers/database');
 
 let id = 0;
 
@@ -121,17 +121,19 @@ async function scrapeCong(url) {
 		congregation.long = long;
 	}
 
-    id++;
-	
-    if(congregation.lat){
-        db.updateDb(congregation).catch(error => console.log(error))
-    }
+	id++;
+
+	if (congregation.lat) {
+		db.updateDb(congregation).catch((error) => console.log(error));
+	}
 }
 
 async function scrapeRpcna() {
-	const response = await axios.get('https://rpcna.org/trunk/page/congregations');
+	const response = await axios.get(
+		'https://rpcna.org/trunk/page/congregations'
+	);
 	const presbyteryUrlList = presbyteries(response.data);
-	
+
 	const allUrls = [];
 
 	for await (const presb of presbyteryUrlList) {

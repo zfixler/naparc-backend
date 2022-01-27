@@ -49,7 +49,7 @@ async function scrapeArp() {
 
 		key++;
 
-		if (cong.lat) {
+		if (cong.lat !== undefined) {
 			db.updateDb(cong).catch((error) => console.log(error));
 		}
 	});
