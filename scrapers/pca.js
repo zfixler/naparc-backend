@@ -3,7 +3,6 @@ const axios = require('axios');
 const db = require('../helpers/database');
 
 let id = 0;
-let count = 0;
 const pca = [];
 const usa = [
 	'AL',
@@ -192,7 +191,6 @@ async function getStateOptions() {
 		.each((i, el) => {
 			stateSelectorArray.push($(el).attr('value'));
 		});
-	count = stateSelectorArray.length;
 	return stateSelectorArray;
 }
 
@@ -259,18 +257,11 @@ async function scrapePca() {
 				cong.lat = locArr[0];
 				cong.long = locArr[1];
 			}
-			console.log(cong);
 		}
 
 		if (cong.lat !== undefined) {
 			db.updateDb(cong).catch((error) => console.log(error));
 		}
-
-		count++;
-
-		// process.stdout.clearLine();
-		// process.stdout.cursorTo(0);
-		// process.stdout.write(`Total hits: ${count}.`);
 	}
 }
 

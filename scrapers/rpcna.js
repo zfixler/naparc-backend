@@ -142,12 +142,8 @@ async function scrapeRpcna() {
 		allUrls.push(congUrls);
 	}
 
-	let count = 0;
-
 	for await (const url of allUrls.flat()) {
 		await scrapeCong(url).catch((error) => console.log(error));
-		console.log(`${count + 1} congregations scraped.`);
-		count++;
 	}
 }
 

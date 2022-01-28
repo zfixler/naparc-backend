@@ -3,15 +3,10 @@ const axios = require('axios');
 const db = require('../helpers/database');
 const https = require('https');
 
-let totalHits = 0;
 let churchArray = [];
-let totalRejects = 0;
 let id = 0;
 
-function writeJson(num1, num2, data) {
-	// process.stdout.clearLine();
-	// process.stdout.cursorTo(0);
-	// process.stdout.write(`Total hits: ${num1}. Total rejects: ${num2}.`);
+function writeJson(data) {
 
 	if (data !== null) {
 		if(data.lat){
@@ -141,11 +136,7 @@ async function getURL(res) {
 			}
 		}
 
-		totalHits += 1;
-		writeJson(totalHits, totalRejects, congregation);
-	} else {
-		totalRejects += 1;
-		writeJson(totalHits, totalRejects, null);
+		writeJson(congregation);
 	}
 }
 
