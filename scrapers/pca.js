@@ -268,9 +268,9 @@ async function scrapePca() {
 
 		count++;
 
-		process.stdout.clearLine();
-		process.stdout.cursorTo(0);
-		process.stdout.write(`Total hits: ${count}.`);
+		// process.stdout.clearLine();
+		// process.stdout.cursorTo(0);
+		// process.stdout.write(`Total hits: ${count}.`);
 	}
 }
 

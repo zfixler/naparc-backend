@@ -16,21 +16,21 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.post('/', async (req, res) => {
-  // Parse auth bearer from request
+	// Parse auth bearer from request
 	const ACTION_KEY = req.headers.authorization.split(' ')[1];
 
 	try {
-    // Check if auth bearer matches secret key
+		// Check if auth bearer matches secret key
 		if (ACTION_KEY === process.env.APP_KEY) {
-      // Run scrapers
-      await scrapeOpc().catch((e) => console.log(e));
+			// Run scrapers
+			await scrapeOpc().catch((e) => console.log(e));
 			await scrapeRpcna().catch((e) => console.log(e));
 			await scrapeArp().catch((e) => console.log(e));
 			await scrapeFrcna().catch((e) => console.log(e));
-      await scrapeHrc().catch((e) => console.log(e));
-      await scrapePca().catch((e) => console.log(e));
-      await scrapePrc().catch((e) => console.log(e));
-      await scrapeUrcna().catch((e) => console.log(e));
+			await scrapeHrc().catch((e) => console.log(e));
+			await scrapePca().catch((e) => console.log(e));
+			await scrapePrc().catch((e) => console.log(e));
+			await scrapeUrcna().catch((e) => console.log(e));
 			res.status(200).json({ message: 'Scrape Complete' }).end();
 		} else {
 			res.status(401).end();

@@ -9,9 +9,9 @@ let totalRejects = 0;
 let id = 0;
 
 function writeJson(num1, num2, data) {
-	process.stdout.clearLine();
-	process.stdout.cursorTo(0);
-	process.stdout.write(`Total hits: ${num1}. Total rejects: ${num2}.`);
+	// process.stdout.clearLine();
+	// process.stdout.cursorTo(0);
+	// process.stdout.write(`Total hits: ${num1}. Total rejects: ${num2}.`);
 
 	if (data !== null) {
 		if(data.lat){
