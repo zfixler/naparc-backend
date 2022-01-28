@@ -85,7 +85,7 @@ async function scrapeUrcna() {
 			const cong = scrapeCong(url);
 
 			if (cong.lat !== undefined) {
-				db.updateDb(item).catch((error) => console.log(error));
+				db.updateDb(cong).catch((error) => console.log(error));
 			}
 		});
 	} catch {
