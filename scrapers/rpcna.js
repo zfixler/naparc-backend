@@ -84,6 +84,10 @@ async function scrapeCong(url) {
 		website: website,
 		pastor: pastor,
 		address: address,
+		location: {
+			type: "Point",
+			coordinate: [null, null]
+		},
 	};
 
 	if (address.match(/\d{5}(?!.*\d{5})/g) !== null) {
@@ -100,8 +104,8 @@ async function scrapeCong(url) {
 		const lat = await json.places[0].latitude;
 		const long = await json.places[0].longitude;
 
-		congregation.lat = lat;
-		congregation.long = long;
+		congregation.location.coordinate[1] = lat;
+		congregation.location.coordinate[0] = long;
 	} else if (address.match(/[A-Z]\d[A-Z]/g) !== null) {
 		const zip = address
 			.match(/[A-Z]\d[A-Z](?!.*[A-Z]\d[A-Z])/g)
@@ -117,13 +121,13 @@ async function scrapeCong(url) {
 		const lat = await json.places[0].latitude;
 		const long = await json.places[0].longitude;
 
-		congregation.lat = lat;
-		congregation.long = long;
+		congregation.location.coordinate[1] = lat;
+		congregation.location.coordinate[0] = long;
 	}
 
 	id++;
 
-	if (congregation.lat) {
+	if (congregation.location.coordinate[0] !== null) {
 		db.updateDb(congregation).catch((error) => console.log(error));
 	}
 }

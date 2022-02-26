@@ -169,6 +169,10 @@ async function scrapePage(html) {
 			city: city.toLowerCase(),
 			state: state.toLowerCase(),
 			denom: 'PCA',
+			location: {
+				type: "Point",
+				coordinate: [null, null]
+			},
 		};
 
 		id++;
@@ -238,8 +242,8 @@ async function scrapePca() {
 				}
 			);
 			if (locArr !== undefined) {
-				cong.lat = locArr[0];
-				cong.long = locArr[1];
+				cong.location.coordinate[1] = locArr[0];
+				cong.location.coordinate[0] = locArr[1];
 			}
 		} else {
 			const locArr = await getCaLongLat(cong.city, cong.state).catch(
@@ -254,12 +258,12 @@ async function scrapePca() {
 				}
 			);
 			if (locArr !== undefined) {
-				cong.lat = locArr[0];
-				cong.long = locArr[1];
+				cong.location.coordinate[1] = locArr[0];
+				cong.location.coordinate[0] = locArr[1];
 			}
 		}
 
-		if (cong.lat !== undefined) {
+		if (cong.location.coordinate[0] !== undefined) {
 			db.updateDb(cong).catch((error) => console.log(error));
 		}
 	}

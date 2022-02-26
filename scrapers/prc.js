@@ -1,3 +1,5 @@
+//PRC Updated their website, making this scraper obsolete. Need to update.
+
 const cheerio = require('cheerio');
 const axios = require('axios');
 const db = require('../helpers/database');
@@ -56,6 +58,10 @@ async function scrapeCong(arr) {
 			phone: phone,
 			email: email,
 			website: url,
+			location: {
+				type: "Point",
+				coordinate: [null, null]
+			},
 		};
 
 		if (address.match(/[A-Z][0-9][A-Z]/g)) {
@@ -72,8 +78,8 @@ async function scrapeCong(arr) {
 			const lat = await json.places[0].latitude;
 			const long = await json.places[0].longitude;
 
-			cong.lat = lat;
-			cong.long = long;
+			cong.location.coordinate[1] = lat;
+			cong.location.coordinate[0] = long;
 		} else if (
 			address.match(/[A-Z][a-z]+,\s[A-Z]{2}[0-9]{5}/g) ||
 			address.match(/[A-Z][a-z]+,\s[A-Z]{2}\s[0-9]{5}/g)
@@ -92,8 +98,8 @@ async function scrapeCong(arr) {
 			const lat = await json.places[0].latitude;
 			const long = await json.places[0].longitude;
 
-			cong.lat = lat;
-			cong.long = long;
+			cong.location.coordinate[1] = lat;
+			cong.location.coordinate[0] = long;
 		} else if (address.match(/[A-Z][a-z]+,\s[A-Z]{2}/g)) {
 			let str = address.match(/[A-Z][a-z]+,\s[A-Z]{2}/g)[0];
 			let state = str.match(/[A-Z]{2}/g)[0];
@@ -108,15 +114,16 @@ async function scrapeCong(arr) {
 				const lat = await json.places[0].latitude;
 				const long = await json.places[0].longitude;
 
-				cong.lat = lat;
-				cong.long = long;
+				cong.location.coordinate[1] = lat;
+				cong.location.coordinate[0] = long;
 			}
 		}
 
 		id++;
 
-		if (cong.lat !== undefined) {
-			db.updateDb(cong).catch((error) => console.log(error));
+		if (cong.location.coordinate[0] !== null) {
+			console.log(cong)
+			//db.updateDb(cong).catch((error) => console.log(error));
 		}
 	}
 }
@@ -137,5 +144,7 @@ async function scrapePrc() {
 
 	await scrapeCong(urlArray);
 }
+
+scrapePrc()
 
 exports.scrapePrc = scrapePrc;

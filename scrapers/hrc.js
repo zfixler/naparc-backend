@@ -77,6 +77,10 @@ function scrapeData(html) {
 			phone: phone,
 			email: email,
 			website: website,
+			location: {
+				type: "Point",
+				coordinate: [null, null]
+			},
 		};
 
 		id++;
@@ -113,8 +117,8 @@ async function scrapeHrc() {
 			const lat = await json.places[0].latitude;
 			const long = await json.places[0].longitude;
 
-			item.lat = lat;
-			item.long = long;
+			item.location.coordinate[1] = lat;
+			item.location.coordinate[0] = long;
 		} else if (item.address.match(/\d{5}(?!.*\d{5})/g)) {
 			const zip = item.address
 				.match(/\d{5}(?!.*\d{5})/g)
@@ -130,11 +134,11 @@ async function scrapeHrc() {
 			const lat = await json.places[0].latitude;
 			const long = await json.places[0].longitude;
 
-			item.lat = lat;
-			item.long = long;
+			item.location.coordinate[1] = lat;
+			item.location.coordinate[0] = long;
 		}
 
-		if (item.lat !== null) {
+		if (item.location.coordinate[0] !== null) {
 			db.updateDb(item).catch((error) => console.log(error));
 		}
 	}

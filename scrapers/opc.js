@@ -9,7 +9,7 @@ let id = 0;
 function writeJson(data) {
 
 	if (data !== null) {
-		if(data.lat){
+		if(data.location.coordinate[0] !== null){
 			db.updateDb(data).catch((error) => console.log(error));
 		}
 	}
@@ -75,6 +75,10 @@ async function getURL(res) {
 			email: email,
 			website: website,
 			address: address,
+			location: {
+				type: "Point",
+				coordinate: [null, null]
+			},
 		};
 
 		if (address.match(/[A-Z][0-9][A-Z]/g)) {
@@ -92,8 +96,8 @@ async function getURL(res) {
 				const lat = await json.places[0].latitude;
 				const long = await json.places[0].longitude;
 
-				congregation.lat = lat;
-				congregation.long = long;
+				congregation.location.coordinate[1] = lat;
+				congregation.location.coordinate[0] = long;
 			}
 		} else if (
 			address.match(/[A-Z][a-z]+,\s[A-Z]{2}[0-9]{5}/g) ||
@@ -114,8 +118,8 @@ async function getURL(res) {
 				const lat = await json.places[0].latitude;
 				const long = await json.places[0].longitude;
 
-				congregation.lat = lat;
-				congregation.long = long;
+				congregation.location.coordinate[1] = lat;
+				congregation.location.coordinate[0] = long;
 			}
 		} else if (address.match(/[A-Z][a-z]+,\s[A-Z]{2}/g)) {
 			let str = address.match(/[A-Z][a-z]+,\s[A-Z]{2}/g)[0];
@@ -131,8 +135,8 @@ async function getURL(res) {
 				const lat = await json.places[0].latitude;
 				const long = await json.places[0].longitude;
 
-				congregation.lat = lat;
-				congregation.long = long;
+				congregation.location.coordinate[1] = lat;
+				congregation.location.coordinate[0] = long;
 			}
 		}
 

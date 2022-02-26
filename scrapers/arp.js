@@ -43,13 +43,15 @@ async function scrapeArp() {
 			website: obj.url,
 			email: obj.email,
 			denom: 'ARP',
-			long: obj.lng,
-			lat: obj.lat,
+			location: {
+				type: "Point",
+				coordinate: [obj.lng, obj.lat]
+			},
 		};
 
 		key++;
 
-		if (cong.lat !== undefined) {
+		if (cong.location.coordinate[0] !== undefined) {
 			db.updateDb(cong).catch((error) => console.log(error));
 		}
 	});

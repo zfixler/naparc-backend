@@ -31,8 +31,10 @@ async function scrapeCong(html, url) {
 			phone: null,
 			website: null,
 			email: null,
-			long: null,
-			lat: null,
+			location: {
+				type: "Point",
+				coordinate: [null, null]
+			},
 		};
 
 		congregation.name = $('h2').text().trim();
@@ -108,8 +110,8 @@ async function scrapeCong(html, url) {
 			const lat = await json.places[0].latitude;
 			const long = await json.places[0].longitude;
 
-			congregation.lat = lat;
-			congregation.long = long;
+			congregation.location.coordinate[1] = lat;
+			congregation.location.coordinate[0] = long;
 		} else if (congregation.address.match(/[A-Z]\d[A-Z]/g) !== null) {
 			const zip = congregation.address.match(/[A-Z]\d[A-Z]/g)[0];
 			const url = `http://api.zippopotam.us/CA/${zip}`;
@@ -120,8 +122,8 @@ async function scrapeCong(html, url) {
 			const lat = await json.places[0].latitude;
 			const long = await json.places[0].longitude;
 
-			congregation.lat = lat;
-			congregation.long = long;
+			congregation.location.coordinate[1] = lat;
+			congregation.location.coordinate[0] = long;
 		}
 		id++;
 		return congregation;
@@ -145,7 +147,7 @@ async function scrapeFrcna() {
 			const html = await response.data;
 			const cong = await scrapeCong(html, url);
 
-			if (cong.lat !== null) {
+			if (cong.location.coordinate[0] !== null) {
 				db.updateDb(cong).catch((error) => console.log(error));
 			}
 		}
