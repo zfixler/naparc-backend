@@ -117,8 +117,8 @@ async function scrapeHrc() {
 			const lat = await json.places[0].latitude;
 			const long = await json.places[0].longitude;
 
-			item.location.coordinate[1] = lat;
-			item.location.coordinate[0] = long;
+			item.location.coordinate[1] = parseFloat(lat);
+			item.location.coordinate[0] = parseFloat(long);
 		} else if (item.address.match(/\d{5}(?!.*\d{5})/g)) {
 			const zip = item.address
 				.match(/\d{5}(?!.*\d{5})/g)
@@ -134,8 +134,8 @@ async function scrapeHrc() {
 			const lat = await json.places[0].latitude;
 			const long = await json.places[0].longitude;
 
-			item.location.coordinate[1] = lat;
-			item.location.coordinate[0] = long;
+			item.location.coordinate[1] = parseFloat(lat);
+			item.location.coordinate[0] = parseFloat(long);
 		}
 
 		if (item.location.coordinate[0] !== null) {

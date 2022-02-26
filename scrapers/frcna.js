@@ -110,8 +110,8 @@ async function scrapeCong(html, url) {
 			const lat = await json.places[0].latitude;
 			const long = await json.places[0].longitude;
 
-			congregation.location.coordinate[1] = lat;
-			congregation.location.coordinate[0] = long;
+			congregation.location.coordinate[1] = parseFloat(lat);
+			congregation.location.coordinate[0] = parseFloat(long);
 		} else if (congregation.address.match(/[A-Z]\d[A-Z]/g) !== null) {
 			const zip = congregation.address.match(/[A-Z]\d[A-Z]/g)[0];
 			const url = `http://api.zippopotam.us/CA/${zip}`;
@@ -122,8 +122,8 @@ async function scrapeCong(html, url) {
 			const lat = await json.places[0].latitude;
 			const long = await json.places[0].longitude;
 
-			congregation.location.coordinate[1] = lat;
-			congregation.location.coordinate[0] = long;
+			congregation.location.coordinate[1] = parseFloat(lat);
+			congregation.location.coordinate[0] = parseFloat(long);
 		}
 		id++;
 		return congregation;

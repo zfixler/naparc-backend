@@ -242,8 +242,8 @@ async function scrapePca() {
 				}
 			);
 			if (locArr !== undefined) {
-				cong.location.coordinate[1] = locArr[0];
-				cong.location.coordinate[0] = locArr[1];
+				cong.location.coordinate[1] = parseFloat(locArr[0]);
+				cong.location.coordinate[0] = parseFloat(locArr[1]);
 			}
 		} else {
 			const locArr = await getCaLongLat(cong.city, cong.state).catch(
@@ -258,8 +258,8 @@ async function scrapePca() {
 				}
 			);
 			if (locArr !== undefined) {
-				cong.location.coordinate[1] = locArr[0];
-				cong.location.coordinate[0] = locArr[1];
+				cong.location.coordinate[1] = parseFloat(locArr[0]);
+				cong.location.coordinate[0] = parseFloat(locArr[1]);
 			}
 		}
 

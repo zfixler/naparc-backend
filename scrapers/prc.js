@@ -98,8 +98,8 @@ async function scrapeCong(arr) {
 			const lat = await json.places[0].latitude;
 			const long = await json.places[0].longitude;
 
-			cong.location.coordinate[1] = lat;
-			cong.location.coordinate[0] = long;
+			cong.location.coordinate[1] = parseFloat(lat);
+			cong.location.coordinate[0] = parseFloat(long);
 		} else if (address.match(/[A-Z][a-z]+,\s[A-Z]{2}/g)) {
 			let str = address.match(/[A-Z][a-z]+,\s[A-Z]{2}/g)[0];
 			let state = str.match(/[A-Z]{2}/g)[0];
@@ -114,8 +114,8 @@ async function scrapeCong(arr) {
 				const lat = await json.places[0].latitude;
 				const long = await json.places[0].longitude;
 
-				cong.location.coordinate[1] = lat;
-				cong.location.coordinate[0] = long;
+				cong.location.coordinate[1] = parseFloat(lat);
+				cong.location.coordinate[0] = parseFloat(long);
 			}
 		}
 

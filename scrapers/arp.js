@@ -45,7 +45,7 @@ async function scrapeArp() {
 			denom: 'ARP',
 			location: {
 				type: "Point",
-				coordinate: [obj.lng, obj.lat]
+				coordinate: [parseFloat(obj.lng), parseFloat(obj.lat)]
 			},
 		};
 

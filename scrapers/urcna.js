@@ -65,7 +65,7 @@ function scrapeCong(url) {
 		website: `http://${website}`,
 		location: {
 			type: "Point",
-			coordinate: [long, lat]
+			coordinate: [parseFloat(long), parseFloat(lat)]
 		},
 	};
 

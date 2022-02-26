@@ -96,8 +96,8 @@ async function getURL(res) {
 				const lat = await json.places[0].latitude;
 				const long = await json.places[0].longitude;
 
-				congregation.location.coordinate[1] = lat;
-				congregation.location.coordinate[0] = long;
+				congregation.location.coordinate[1] = parseFloat(lat);
+				congregation.location.coordinate[0] = parseFloat(long);
 			}
 		} else if (
 			address.match(/[A-Z][a-z]+,\s[A-Z]{2}[0-9]{5}/g) ||
@@ -118,8 +118,8 @@ async function getURL(res) {
 				const lat = await json.places[0].latitude;
 				const long = await json.places[0].longitude;
 
-				congregation.location.coordinate[1] = lat;
-				congregation.location.coordinate[0] = long;
+				congregation.location.coordinate[1] = parseFloat(lat);
+				congregation.location.coordinate[0] = parseFloat(long);
 			}
 		} else if (address.match(/[A-Z][a-z]+,\s[A-Z]{2}/g)) {
 			let str = address.match(/[A-Z][a-z]+,\s[A-Z]{2}/g)[0];
@@ -135,8 +135,8 @@ async function getURL(res) {
 				const lat = await json.places[0].latitude;
 				const long = await json.places[0].longitude;
 
-				congregation.location.coordinate[1] = lat;
-				congregation.location.coordinate[0] = long;
+				congregation.location.coordinate[1] = parseFloat(lat);
+				congregation.location.coordinate[0] = parseFloat(long);
 			}
 		}
 
