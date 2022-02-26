@@ -45,13 +45,13 @@ async function scrapeArp() {
 			denom: 'ARP',
 			location: {
 				type: 'Point',
-				coordinate: [parseFloat(obj.lng), parseFloat(obj.lat)],
+				coordinates: [parseFloat(obj.lng), parseFloat(obj.lat)],
 			},
 		};
 
 		key++;
 
-		if (cong.location.coordinates[0] !== undefined) {
+		if (typeof cong.location.coordinates[0] === 'number') {
 			db.updateDb(cong).catch((error) => console.log(error));
 		}
 	});

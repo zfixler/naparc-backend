@@ -171,7 +171,7 @@ async function scrapePage(html) {
 			denom: 'PCA',
 			location: {
 				type: 'Point',
-				coordinate: [null, null],
+				coordinates: [null, null],
 			},
 		};
 
@@ -263,7 +263,7 @@ async function scrapePca() {
 			}
 		}
 
-		if (cong.location.coordinates[0] !== undefined) {
+		if (typeof cong.location.coordinates[0] === 'number') {
 			db.updateDb(cong).catch((error) => console.log(error));
 		}
 	}

@@ -127,7 +127,7 @@ async function scrapeCong(url) {
 
 	id++;
 
-	if (congregation.location.coordinates[0] !== null) {
+	if (typeof congregation.location.coordinates[0] === 'number') {
 		db.updateDb(congregation).catch((error) => console.log(error));
 	}
 }

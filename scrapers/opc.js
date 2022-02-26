@@ -8,7 +8,7 @@ let id = 0;
 
 function writeJson(data) {
 	if (data !== null) {
-		if (data.location.coordinates[0] !== null) {
+		if (typeof data.location.coordinates[0] === 'number') {
 			db.updateDb(data).catch((error) => console.log(error));
 		}
 	}
@@ -76,7 +76,7 @@ async function getURL(res) {
 			address: address,
 			location: {
 				type: 'Point',
-				coordinate: [null, null],
+				coordinates: [null, null],
 			},
 		};
 

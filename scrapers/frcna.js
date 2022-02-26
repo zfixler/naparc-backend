@@ -33,7 +33,7 @@ async function scrapeCong(html, url) {
 			email: null,
 			location: {
 				type: 'Point',
-				coordinate: [null, null],
+				coordinates: [null, null],
 			},
 		};
 
@@ -147,7 +147,7 @@ async function scrapeFrcna() {
 			const html = await response.data;
 			const cong = await scrapeCong(html, url);
 
-			if (cong.location.coordinates[0] !== null) {
+			if (typeof cong.location.coordinates[0] === 'number') {
 				db.updateDb(cong).catch((error) => console.log(error));
 			}
 		}

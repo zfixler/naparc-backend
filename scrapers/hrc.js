@@ -79,7 +79,7 @@ function scrapeData(html) {
 			website: website,
 			location: {
 				type: 'Point',
-				coordinate: [null, null],
+				coordinates: [null, null],
 			},
 		};
 
@@ -138,7 +138,7 @@ async function scrapeHrc() {
 			item.location.coordinates[0] = parseFloat(long);
 		}
 
-		if (item.location.coordinates[0] !== null) {
+		if (typeof item.location.coordinates[0] === 'number') {
 			db.updateDb(item).catch((error) => console.log(error));
 		}
 	}

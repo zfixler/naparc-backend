@@ -121,7 +121,7 @@ async function scrapeCong(arr) {
 
 		id++;
 
-		if (cong.location.coordinates[0] !== null) {
+		if (typeof cong.location.coordinates[0] === 'number') {
 			console.log(cong);
 			//db.updateDb(cong).catch((error) => console.log(error));
 		}

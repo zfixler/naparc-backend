@@ -86,7 +86,7 @@ async function scrapeUrcna() {
 		scraped.forEach((url) => {
 			const cong = scrapeCong(url);
 
-			if (cong.location.coordinates[0] !== undefined) {
+			if (typeof cong.location.coordinates[0] === 'number') {
 				db.updateDb(cong).catch((error) => console.log(error));
 			}
 		});
@@ -94,5 +94,5 @@ async function scrapeUrcna() {
 		(error) => console.log(error);
 	}
 }
-
+scrapeUrcna()
 exports.scrapeUrcna = scrapeUrcna;
