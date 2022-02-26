@@ -44,14 +44,14 @@ async function scrapeArp() {
 			email: obj.email,
 			denom: 'ARP',
 			location: {
-				type: "Point",
-				coordinate: [parseFloat(obj.lng), parseFloat(obj.lat)]
+				type: 'Point',
+				coordinate: [parseFloat(obj.lng), parseFloat(obj.lat)],
 			},
 		};
 
 		key++;
 
-		if (cong.location.coordinate[0] !== undefined) {
+		if (cong.location.coordinates[0] !== undefined) {
 			db.updateDb(cong).catch((error) => console.log(error));
 		}
 	});

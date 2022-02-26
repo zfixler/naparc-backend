@@ -7,9 +7,8 @@ let churchArray = [];
 let id = 0;
 
 function writeJson(data) {
-
 	if (data !== null) {
-		if(data.location.coordinate[0] !== null){
+		if (data.location.coordinates[0] !== null) {
 			db.updateDb(data).catch((error) => console.log(error));
 		}
 	}
@@ -76,8 +75,8 @@ async function getURL(res) {
 			website: website,
 			address: address,
 			location: {
-				type: "Point",
-				coordinate: [null, null]
+				type: 'Point',
+				coordinate: [null, null],
 			},
 		};
 
@@ -96,8 +95,8 @@ async function getURL(res) {
 				const lat = await json.places[0].latitude;
 				const long = await json.places[0].longitude;
 
-				congregation.location.coordinate[1] = parseFloat(lat);
-				congregation.location.coordinate[0] = parseFloat(long);
+				congregation.location.coordinates[1] = parseFloat(lat);
+				congregation.location.coordinates[0] = parseFloat(long);
 			}
 		} else if (
 			address.match(/[A-Z][a-z]+,\s[A-Z]{2}[0-9]{5}/g) ||
@@ -118,8 +117,8 @@ async function getURL(res) {
 				const lat = await json.places[0].latitude;
 				const long = await json.places[0].longitude;
 
-				congregation.location.coordinate[1] = parseFloat(lat);
-				congregation.location.coordinate[0] = parseFloat(long);
+				congregation.location.coordinates[1] = parseFloat(lat);
+				congregation.location.coordinates[0] = parseFloat(long);
 			}
 		} else if (address.match(/[A-Z][a-z]+,\s[A-Z]{2}/g)) {
 			let str = address.match(/[A-Z][a-z]+,\s[A-Z]{2}/g)[0];
@@ -135,8 +134,8 @@ async function getURL(res) {
 				const lat = await json.places[0].latitude;
 				const long = await json.places[0].longitude;
 
-				congregation.location.coordinate[1] = parseFloat(lat);
-				congregation.location.coordinate[0] = parseFloat(long);
+				congregation.location.coordinates[1] = parseFloat(lat);
+				congregation.location.coordinates[0] = parseFloat(long);
 			}
 		}
 

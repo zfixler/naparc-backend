@@ -32,8 +32,8 @@ async function scrapeCong(html, url) {
 			website: null,
 			email: null,
 			location: {
-				type: "Point",
-				coordinate: [null, null]
+				type: 'Point',
+				coordinate: [null, null],
 			},
 		};
 
@@ -110,8 +110,8 @@ async function scrapeCong(html, url) {
 			const lat = await json.places[0].latitude;
 			const long = await json.places[0].longitude;
 
-			congregation.location.coordinate[1] = parseFloat(lat);
-			congregation.location.coordinate[0] = parseFloat(long);
+			congregation.location.coordinates[1] = parseFloat(lat);
+			congregation.location.coordinates[0] = parseFloat(long);
 		} else if (congregation.address.match(/[A-Z]\d[A-Z]/g) !== null) {
 			const zip = congregation.address.match(/[A-Z]\d[A-Z]/g)[0];
 			const url = `http://api.zippopotam.us/CA/${zip}`;
@@ -122,8 +122,8 @@ async function scrapeCong(html, url) {
 			const lat = await json.places[0].latitude;
 			const long = await json.places[0].longitude;
 
-			congregation.location.coordinate[1] = parseFloat(lat);
-			congregation.location.coordinate[0] = parseFloat(long);
+			congregation.location.coordinates[1] = parseFloat(lat);
+			congregation.location.coordinates[0] = parseFloat(long);
 		}
 		id++;
 		return congregation;
@@ -147,7 +147,7 @@ async function scrapeFrcna() {
 			const html = await response.data;
 			const cong = await scrapeCong(html, url);
 
-			if (cong.location.coordinate[0] !== null) {
+			if (cong.location.coordinates[0] !== null) {
 				db.updateDb(cong).catch((error) => console.log(error));
 			}
 		}

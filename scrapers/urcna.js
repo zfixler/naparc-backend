@@ -64,8 +64,8 @@ function scrapeCong(url) {
 		email: email,
 		website: `http://${website}`,
 		location: {
-			type: "Point",
-			coordinate: [parseFloat(long), parseFloat(lat)]
+			type: 'Point',
+			coordinates: [parseFloat(long), parseFloat(lat)],
 		},
 	};
 
@@ -86,7 +86,7 @@ async function scrapeUrcna() {
 		scraped.forEach((url) => {
 			const cong = scrapeCong(url);
 
-			if (cong.location.coordinate[0] !== undefined) {
+			if (cong.location.coordinates[0] !== undefined) {
 				db.updateDb(cong).catch((error) => console.log(error));
 			}
 		});

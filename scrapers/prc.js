@@ -59,8 +59,8 @@ async function scrapeCong(arr) {
 			email: email,
 			website: url,
 			location: {
-				type: "Point",
-				coordinate: [null, null]
+				type: 'Point',
+				coordinates: [null, null],
 			},
 		};
 
@@ -78,8 +78,8 @@ async function scrapeCong(arr) {
 			const lat = await json.places[0].latitude;
 			const long = await json.places[0].longitude;
 
-			cong.location.coordinate[1] = lat;
-			cong.location.coordinate[0] = long;
+			cong.location.coordinates[1] = lat;
+			cong.location.coordinates[0] = long;
 		} else if (
 			address.match(/[A-Z][a-z]+,\s[A-Z]{2}[0-9]{5}/g) ||
 			address.match(/[A-Z][a-z]+,\s[A-Z]{2}\s[0-9]{5}/g)
@@ -98,8 +98,8 @@ async function scrapeCong(arr) {
 			const lat = await json.places[0].latitude;
 			const long = await json.places[0].longitude;
 
-			cong.location.coordinate[1] = parseFloat(lat);
-			cong.location.coordinate[0] = parseFloat(long);
+			cong.location.coordinates[1] = parseFloat(lat);
+			cong.location.coordinates[0] = parseFloat(long);
 		} else if (address.match(/[A-Z][a-z]+,\s[A-Z]{2}/g)) {
 			let str = address.match(/[A-Z][a-z]+,\s[A-Z]{2}/g)[0];
 			let state = str.match(/[A-Z]{2}/g)[0];
@@ -114,15 +114,15 @@ async function scrapeCong(arr) {
 				const lat = await json.places[0].latitude;
 				const long = await json.places[0].longitude;
 
-				cong.location.coordinate[1] = parseFloat(lat);
-				cong.location.coordinate[0] = parseFloat(long);
+				cong.location.coordinates[1] = parseFloat(lat);
+				cong.location.coordinates[0] = parseFloat(long);
 			}
 		}
 
 		id++;
 
-		if (cong.location.coordinate[0] !== null) {
-			console.log(cong)
+		if (cong.location.coordinates[0] !== null) {
+			console.log(cong);
 			//db.updateDb(cong).catch((error) => console.log(error));
 		}
 	}
@@ -145,6 +145,6 @@ async function scrapePrc() {
 	await scrapeCong(urlArray);
 }
 
-scrapePrc()
+scrapePrc();
 
 exports.scrapePrc = scrapePrc;
