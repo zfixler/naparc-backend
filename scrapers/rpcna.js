@@ -127,7 +127,7 @@ async function scrapeCong(url) {
 
 	id++;
 
-	if (typeof congregation.location.coordinates[0] === 'number') {
+	if (typeof congregation.location.coordinates[0] === 'number' && isNaN(cong.location.coordinates[0]) === false) {
 		db.updateDb(congregation).catch((error) => console.log(error));
 	}
 }

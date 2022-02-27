@@ -121,7 +121,7 @@ async function scrapeCong(arr) {
 
 		id++;
 
-		if (typeof cong.location.coordinates[0] === 'number') {
+		if (typeof cong.location.coordinates[0] === 'number' && isNaN(cong.location.coordinates[0]) === false) {
 			console.log(cong);
 			//db.updateDb(cong).catch((error) => console.log(error));
 		}

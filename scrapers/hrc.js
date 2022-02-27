@@ -138,7 +138,7 @@ async function scrapeHrc() {
 			item.location.coordinates[0] = parseFloat(long);
 		}
 
-		if (typeof item.location.coordinates[0] === 'number') {
+		if (typeof item.location.coordinates[0] === 'number' && isNaN(item.location.coordinates[0]) === false) {
 			db.updateDb(item).catch((error) => console.log(error));
 		}
 	}

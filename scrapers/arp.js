@@ -51,7 +51,7 @@ async function scrapeArp() {
 
 		key++;
 
-		if (typeof cong.location.coordinates[0] === 'number') {
+		if (typeof cong.location.coordinates[0] === 'number' && isNaN(cong.location.coordinates[0]) === false) {
 			db.updateDb(cong).catch((error) => console.log(error));
 		}
 	});

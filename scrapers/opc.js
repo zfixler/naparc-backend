@@ -8,7 +8,7 @@ let id = 0;
 
 function writeJson(data) {
 	if (data !== null) {
-		if (typeof data.location.coordinates[0] === 'number') {
+		if (typeof data.location.coordinates[0] === 'number' && isNaN(data.location.coordinates[0]) === false) {
 			db.updateDb(data).catch((error) => console.log(error));
 		}
 	}
