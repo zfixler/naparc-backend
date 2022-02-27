@@ -23,4 +23,20 @@ async function updateDb(obj) {
     client.close()
 }
 
+async function indexDb(){
+        //MongoDB uri
+	const uri = `mongodb+srv://zfixler:${process.env.MONGO_PASSWORD}@naparc.hnt60.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+	const client = new MongoClient(uri, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+	});
+    //Connect to Mongo Client
+    await client.connect();
+    const db = client.db('NAPARC');
+    const collection = db.collection('congregations');
+    await collection.createIndex( { "location": "2dsphere" });
+    client.close()
+}
+
 exports.updateDb = updateDb;
+exports.indexDb = indexDb;

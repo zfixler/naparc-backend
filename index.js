@@ -1,4 +1,6 @@
 const express = require('express');
+// Import Db for Indexing
+const db = require('../helpers/database');
 // Import dotenv for development
 require('dotenv').config();
 // Import scrapers
@@ -31,6 +33,7 @@ app.post('/', async (req, res) => {
 			await scrapePca().catch((e) => console.log(e));
 			await scrapePrc().catch((e) => console.log(e));
 			await scrapeUrcna().catch((e) => console.log(e));
+			await db.indexDb().catch((e) => console.log(error));
 			res.status(200).json({ message: 'Scrape Complete' }).end();
 		} else {
 			res.status(401).end();
