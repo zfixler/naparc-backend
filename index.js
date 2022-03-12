@@ -1,6 +1,6 @@
 const express = require('express');
 // Import Db for Indexing
-const db = require('../helpers/database');
+const db = require('./helpers/database');
 // Import dotenv for development
 require('dotenv').config();
 // Import scrapers
@@ -10,7 +10,6 @@ const { scrapeFrcna } = require('./scrapers/frcna');
 const { scrapeHrc } = require('./scrapers/hrc');
 const { scrapeOpc } = require('./scrapers/opc');
 const { scrapePca } = require('./scrapers/pca');
-const { scrapePrc } = require('./scrapers/prc');
 const { scrapeUrcna } = require('./scrapers/urcna');
 
 // Create server
