@@ -31,9 +31,8 @@ app.post('/', async (req, res) => {
 			await scrapeFrcna().catch((e) => console.log(e));
 			await scrapeHrc().catch((e) => console.log(e));
 			await scrapePca().catch((e) => console.log(e));
-			await scrapePrc().catch((e) => console.log(e));
 			await scrapeUrcna().catch((e) => console.log(e));
-			await db.indexDb().catch((e) => console.log(error));
+			await db.indexDb().catch((e) => console.log(e));
 			res.status(200).json({ message: 'Scrape Complete' }).end();
 		} else {
 			res.status(401).end();
