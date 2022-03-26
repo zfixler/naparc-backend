@@ -11,6 +11,7 @@ const { scrapeHrc } = require('./scrapers/hrc');
 const { scrapeOpc } = require('./scrapers/opc');
 const { scrapePca } = require('./scrapers/pca');
 const { scrapeUrcna } = require('./scrapers/urcna');
+const { scrapeRcus } = require('./scrapers/rcus');
 
 // Create server
 const app = express();
@@ -31,6 +32,7 @@ app.post('/', async (req, res) => {
 			await scrapeHrc().catch((e) => console.log(e));
 			await scrapePca().catch((e) => console.log(e));
 			await scrapeUrcna().catch((e) => console.log(e));
+			await scrapeRcus().catch((e) => console.log(e));
 			await db.indexDb().catch((e) => console.log(e));
 			res.status(200).json({ message: 'Scrape Complete' }).end();
 		} else {
