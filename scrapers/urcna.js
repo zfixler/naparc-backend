@@ -94,5 +94,5 @@ async function scrapeUrcna() {
 		(error) => console.log(error);
 	}
 }
-scrapeUrcna()
+
 exports.scrapeUrcna = scrapeUrcna;
