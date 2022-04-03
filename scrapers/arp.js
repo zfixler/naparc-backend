@@ -55,6 +55,8 @@ async function scrapeArp() {
 			db.updateDb(cong).catch((error) => console.log(error));
 		}
 	});
+
+	key = 0;
 }
 
 exports.scrapeArp = scrapeArp;

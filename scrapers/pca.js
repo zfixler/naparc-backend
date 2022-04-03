@@ -267,6 +267,8 @@ async function scrapePca() {
 			db.updateDb(cong).catch((error) => console.log(error));
 		}
 	}
+
+	id = 0;
 }
 
 exports.scrapePca = scrapePca;
