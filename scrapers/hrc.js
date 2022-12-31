@@ -1,6 +1,5 @@
 const cheerio = require('cheerio');
 const axios = require('axios');
-const db = require('../helpers/database');
 
 let id = 0;
 
@@ -101,6 +100,7 @@ async function fetchData() {
 
 async function scrapeHrc() {
 	const data = await fetchData().catch((error) => console.log(error));
+	const results = [];
 
 	for await (let item of data) {
 		if (item.address.match(/[A-Z][0-9][A-Z]/g)) {
@@ -139,8 +139,10 @@ async function scrapeHrc() {
 		}
 
 		if (typeof item.location.coordinates[0] === 'number' && isNaN(item.location.coordinates[0]) === false) {
-			db.updateDb(item).catch((error) => console.log(error));
+			results.push(item);
 		}
+
+		return { results };
 	}
 }
 

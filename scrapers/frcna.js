@@ -134,6 +134,7 @@ async function scrapeCong(html, url) {
 
 async function scrapeFrcna() {
 	try {
+		const results = [];
 		const response = await axios.get(
 			'https://frcna.org/component/k2/itemlist/category/5'
 		);
@@ -148,9 +149,10 @@ async function scrapeFrcna() {
 			const cong = await scrapeCong(html, url);
 
 			if (typeof cong.location.coordinates[0] === 'number' && isNaN(cong.location.coordinates[0]) === false) {
-				db.updateDb(cong).catch((error) => console.log(error));
+				results.push(cong);
 			}
 		}
+		return { results };
 	} catch {
 		(error) => console.log(error);
 	}

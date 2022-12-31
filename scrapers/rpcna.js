@@ -1,6 +1,5 @@
 const cheerio = require('cheerio');
 const axios = require('axios');
-const db = require('../helpers/database');
 
 let id = 0;
 
@@ -127,28 +126,30 @@ async function scrapeCong(url) {
 
 	id++;
 
-	if (typeof congregation.location.coordinates[0] === 'number' && isNaN(cong.location.coordinates[0]) === false) {
-		db.updateDb(congregation).catch((error) => console.log(error));
-	}
+	return { congregation };
 }
 
 async function scrapeRpcna() {
+	const results = [];
 	const response = await axios.get(
 		'https://rpcna.org/trunk/page/congregations'
-	);
-	const presbyteryUrlList = presbyteries(response.data);
-
-	const allUrls = [];
-
-	for await (const presb of presbyteryUrlList) {
-		const response = await axios.get(presb);
-		const congUrls = congregations(response.data);
-		allUrls.push(congUrls);
+		);
+		const presbyteryUrlList = presbyteries(response.data);
+		
+		const allUrls = [];
+		
+		for await (const presb of presbyteryUrlList) {
+			const response = await axios.get(presb);
+			const congUrls = congregations(response.data);
+			allUrls.push(congUrls);
+		}
+		
+		for await (const url of allUrls.flat()) {
+		const congregation = await scrapeCong(url).catch((error) => console.log(error));
+		if (congregation) results.push(congregation);
 	}
 
-	for await (const url of allUrls.flat()) {
-		await scrapeCong(url).catch((error) => console.log(error));
-	}
+	return { results };
 }
 
 exports.scrapeRpcna = scrapeRpcna;

@@ -1,5 +1,4 @@
 const axios = require('axios');
-const db = require('../helpers/database');
 
 let key = 0;
 
@@ -32,7 +31,7 @@ async function fetchArpData() {
 
 async function scrapeArp() {
 	const data = await fetchArpData().catch((error) => console.log(error));
-
+	const results = [];
 	data.forEach((obj) => {
 		const cong = {
 			key: `arp-${key}`,
@@ -52,11 +51,13 @@ async function scrapeArp() {
 		key++;
 
 		if (typeof cong.location.coordinates[0] === 'number' && isNaN(cong.location.coordinates[0]) === false) {
-			db.updateDb(cong).catch((error) => console.log(error));
+			results.push(cong);
 		}
 	});
 
 	key = 0;
+
+	return { results };
 }
 
 exports.scrapeArp = scrapeArp;

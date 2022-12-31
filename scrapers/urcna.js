@@ -1,6 +1,5 @@
 const cheerio = require('cheerio');
 const axios = require('axios');
-const db = require('../helpers/database');
 
 let totalUrls = null;
 let id = 0;
@@ -76,6 +75,7 @@ function scrapeCong(url) {
 
 async function scrapeUrcna() {
 	try {
+		const results = [];
 		const page = await axios.get(
 			'https://www.urcna.org/sysfiles/member/family/urcna_report.cfm?memberid=1651&public=1'
 		);
@@ -87,9 +87,11 @@ async function scrapeUrcna() {
 			const cong = scrapeCong(url);
 
 			if (typeof cong.location.coordinates[0] === 'number' && isNaN(cong.location.coordinates[0]) === false) {
-				db.updateDb(cong).catch((error) => console.log(error));
+				results.push(cong);
 			}
 		});
+
+		return { results };
 	} catch {
 		(error) => console.log(error);
 	}

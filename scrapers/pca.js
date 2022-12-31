@@ -1,6 +1,5 @@
 const cheerio = require('cheerio');
 const axios = require('axios');
-const db = require('../helpers/database');
 
 let id = 0;
 const pca = [];
@@ -182,10 +181,9 @@ async function scrapePage(html) {
 
 async function getStateOptions() {
 	const page = await axios.get(
-		'https://stat.pcanet.org/ac/directory/directory.cfm'
+		'http://stat.pcanet.org/ac/directory/directory.cfm'
 	);
 	const html = await page.data;
-
 	const $ = cheerio.load(html);
 
 	const stateSelectorArray = [];
@@ -210,11 +208,12 @@ async function fetchPage(url, data) {
 
 async function scrapePca() {
 	const states = await getStateOptions().catch((error) => console.log(error));
+	const results = [];
 
 	for await (const state of states) {
 		if (state !== 'Select State' && state !== '-') {
 			const data = `State=${state}&orderby=1`;
-			const url = 'https://stat.pcanet.org/ac/directory/directory.cfm';
+			const url = 'http://stat.pcanet.org/ac/directory/directory.cfm';
 			const html = await fetchPage(url, data).catch((error) => {
 				if (error.code === 'ECONNRESET') {
 					fetchPage(url, data).catch((error) => console.log(error));
@@ -227,6 +226,7 @@ async function scrapePca() {
 			}
 		}
 	}
+
 
 	for await (const cong of pca) {
 		if (usa.includes(cong.state.toUpperCase())) {
@@ -264,11 +264,13 @@ async function scrapePca() {
 		}
 
 		if (typeof cong.location.coordinates[0] === 'number' && isNaN(cong.location.coordinates[0]) === false) {
-			db.updateDb(cong).catch((error) => console.log(error));
+			results.push(cong);
 		}
 	}
 
 	id = 0;
+
+	return { results };
 }
 
 exports.scrapePca = scrapePca;
