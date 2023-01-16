@@ -128,6 +128,7 @@ const opcScraper = {
 						console.log(e)
 					);
 					opc.push(results);
+					console.log(results);
 				}
 			}
 
