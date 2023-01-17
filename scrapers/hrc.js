@@ -142,7 +142,7 @@ async function scrapeHrc() {
 			results.push(item);
 		}
 
-		return { results };
+		return { resultes: results || [] };
 	}
 }
 

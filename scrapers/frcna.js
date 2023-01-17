@@ -152,7 +152,7 @@ async function scrapeFrcna() {
 				results.push(cong);
 			}
 		}
-		return { results };
+		return { resultes: results || [] };
 	} catch {
 		(error) => console.log(error);
 	}

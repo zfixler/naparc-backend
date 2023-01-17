@@ -149,7 +149,7 @@ async function scrapeRpcna() {
 		if (congregation) results.push(congregation);
 	}
 
-	return { results };
+	return { resultes: results || [] };
 }
 
 exports.scrapeRpcna = scrapeRpcna;

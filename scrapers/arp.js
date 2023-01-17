@@ -57,7 +57,7 @@ async function scrapeArp() {
 
 	key = 0;
 
-	return { results };
+	return { resultes: results || [] };
 }
 
 exports.scrapeArp = scrapeArp;

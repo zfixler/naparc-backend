@@ -38,7 +38,7 @@ async function scrapeRcus() {
 
 	});
 
-	return { results };
+	return { resultes: results || [] };
 }
 
 exports.scrapeRcus = scrapeRcus;

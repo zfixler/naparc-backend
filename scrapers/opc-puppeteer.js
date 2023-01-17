@@ -128,7 +128,6 @@ const opcScraper = {
 						console.log(e)
 					);
 					opc.push(results);
-					console.log(results);
 				}
 			}
 
@@ -136,7 +135,7 @@ const opcScraper = {
 				results: _.map(opc.flat(), (cong, i) => {
 					cong.key = `opc-${i}`;
 					return cong;
-				}),
+				}) || [],
 			};
 		} catch (e) {
 			console.log(e);

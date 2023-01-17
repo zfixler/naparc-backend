@@ -270,7 +270,7 @@ async function scrapePca() {
 
 	id = 0;
 
-	return { results };
+	return { resultes: results || [] };
 }
 
 exports.scrapePca = scrapePca;
