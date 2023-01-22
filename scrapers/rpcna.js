@@ -133,23 +133,25 @@ async function scrapeRpcna() {
 	const results = [];
 	const response = await axios.get(
 		'https://rpcna.org/trunk/page/congregations'
+	);
+	const presbyteryUrlList = presbyteries(response.data);
+
+	const allUrls = [];
+
+	for await (const presb of presbyteryUrlList) {
+		const response = await axios.get(presb);
+		const congUrls = congregations(response.data);
+		allUrls.push(congUrls);
+	}
+
+	for await (const url of allUrls.flat()) {
+		const congregation = await scrapeCong(url).catch((error) =>
+			console.log(error)
 		);
-		const presbyteryUrlList = presbyteries(response.data);
-		
-		const allUrls = [];
-		
-		for await (const presb of presbyteryUrlList) {
-			const response = await axios.get(presb);
-			const congUrls = congregations(response.data);
-			allUrls.push(congUrls);
-		}
-		
-		for await (const url of allUrls.flat()) {
-		const congregation = await scrapeCong(url).catch((error) => console.log(error));
 		if (congregation) results.push(congregation);
 	}
 
-	return { resultes: results || [] };
+	return { results: results };
 }
 
 exports.scrapeRpcna = scrapeRpcna;

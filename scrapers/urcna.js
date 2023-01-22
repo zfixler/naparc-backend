@@ -86,12 +86,15 @@ async function scrapeUrcna() {
 		scraped.forEach((url) => {
 			const cong = scrapeCong(url);
 
-			if (typeof cong.location.coordinates[0] === 'number' && isNaN(cong.location.coordinates[0]) === false) {
+			if (
+				typeof cong.location.coordinates[0] === 'number' &&
+				isNaN(cong.location.coordinates[0]) === false
+			) {
 				results.push(cong);
 			}
 		});
 
-		return { resultes: results || [] };
+		return { results: results };
 	} catch {
 		(error) => console.log(error);
 	}

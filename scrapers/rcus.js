@@ -32,13 +32,15 @@ async function scrapeRcus() {
 		};
 		id++;
 
-        if (typeof cong.location.coordinates[0] === 'number' && isNaN(cong.location.coordinates[0]) === false) {
+		if (
+			typeof cong.location.coordinates[0] === 'number' &&
+			isNaN(cong.location.coordinates[0]) === false
+		) {
 			results.push(cong);
 		}
-
 	});
 
-	return { resultes: results || [] };
+	return { results: results };
 }
 
 exports.scrapeRcus = scrapeRcus;

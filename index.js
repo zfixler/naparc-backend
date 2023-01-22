@@ -25,15 +25,32 @@ app.post('/', async (req, res) => {
 		// Check if auth bearer matches secret key
 		if (ACTION_KEY === process.env.APP_KEY) {
 			// Run scrapers
+			let results = [];
+
 			const { results: opc } = await runScrape().catch((e) => console.log(e));
+			if (opc) [...results, ...opc];
+
 			const { results: rpcna } = await scrapeRpcna().catch((e) => console.log(e));
+			if (rpcna) [...results, ...rpcna];
+
 			const { results: arp } = await scrapeArp().catch((e) => console.log(e));
+			if (arp) [...results, ...arp];
+
 			const { results: frcna } = await scrapeFrcna().catch((e) => console.log(e));
+			if (frcna) [...results, ...frcna];
+
 			const { results: hrc } = await scrapeHrc().catch((e) => console.log(e));
+			if (hrc) [...results, ...hrc];
+
 			const { results: pca } = await scrapePca().catch((e) => console.log(e));
+			if (pca) [...results, ...pca];
+
 			const { results: urcna } = await scrapeUrcna().catch((e) => console.log(e));
+			if (urcna) [...results, ...urcna];
+
 			const { results: rcus } = await scrapeRcus().catch((e) => console.log(e));
-			const results = [...opc, ...rpcna, ...arp, ...frcna, ...hrc, ...pca, ...urcna, ...rcus];
+			if (rcus) [...results, ...rcus];
+			
 			await db.updateDb(results).catch(e => console.log(e));
 			res.status(200).json({ message: 'Scrape Complete' }).end();
 		} else {

@@ -148,11 +148,14 @@ async function scrapeFrcna() {
 			const html = await response.data;
 			const cong = await scrapeCong(html, url);
 
-			if (typeof cong.location.coordinates[0] === 'number' && isNaN(cong.location.coordinates[0]) === false) {
+			if (
+				typeof cong.location.coordinates[0] === 'number' &&
+				isNaN(cong.location.coordinates[0]) === false
+			) {
 				results.push(cong);
 			}
 		}
-		return { resultes: results || [] };
+		return { results: results };
 	} catch {
 		(error) => console.log(error);
 	}
