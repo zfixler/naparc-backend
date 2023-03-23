@@ -51,6 +51,7 @@ app.post('/', async (req, res) => {
 			const { results: rcus } = await scrapeRcus().catch((e) => console.log(e));
 			if (rcus) [...results, ...rcus];
 			
+			console.log(`All scrapers completed with ${ results.length } results...`);
 			await db.updateDb(results).catch(e => console.log(e));
 			res.status(200).json({ message: 'Scrape Complete' }).end();
 		} else {
