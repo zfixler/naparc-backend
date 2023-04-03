@@ -28,28 +28,28 @@ app.post('/', async (req, res) => {
 			let results = [];
 
 			const { results: opc } = await runScrape().catch((e) => console.log(e));
-			if (opc) [...results, ...opc];
+			if (opc) results = [...results, ...opc];
 
 			const { results: rpcna } = await scrapeRpcna().catch((e) => console.log(e));
-			if (rpcna) [...results, ...rpcna];
+			if (rpcna) results = [...results, ...rpcna];
 
 			const { results: arp } = await scrapeArp().catch((e) => console.log(e));
-			if (arp) [...results, ...arp];
+			if (arp) results = [...results, ...arp];
 
 			const { results: frcna } = await scrapeFrcna().catch((e) => console.log(e));
-			if (frcna) [...results, ...frcna];
+			if (frcna) results = [...results, ...frcna];
 
 			const { results: hrc } = await scrapeHrc().catch((e) => console.log(e));
-			if (hrc) [...results, ...hrc];
+			if (hrc) results = [...results, ...hrc];
 
 			const { results: pca } = await scrapePca().catch((e) => console.log(e));
-			if (pca) [...results, ...pca];
+			if (pca) results = [...results, ...pca];
 
 			const { results: urcna } = await scrapeUrcna().catch((e) => console.log(e));
-			if (urcna) [...results, ...urcna];
+			if (urcna) results = [...results, ...urcna];
 
 			const { results: rcus } = await scrapeRcus().catch((e) => console.log(e));
-			if (rcus) [...results, ...rcus];
+			if (rcus) results = [...results, ...rcus];
 			
 			console.log(`All scrapers completed with ${ results.length } results...`);
 			await db.updateDb(results).catch(e => console.log(e));
