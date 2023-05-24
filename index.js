@@ -1,4 +1,6 @@
 const express = require('express');
+// Set axios defaults
+require('./helpers/axios');
 // Import Db for Indexing
 const db = require('./helpers/database');
 // Import dotenv for development
