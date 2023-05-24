@@ -27,29 +27,29 @@ app.post('/', async (req, res) => {
 			// Run scrapers
 			let results = [];
 
-			const { results: opc } = await runScrape().catch((e) => console.log(e));
-			if (opc) results = [...results, ...opc];
+			const opc = await runScrape().catch((e) => console.log(e));
+			if (opc) results = [...results, ...opc.results];
 
-			const { results: rpcna } = await scrapeRpcna().catch((e) => console.log(e));
-			if (rpcna) results = [...results, ...rpcna];
+			const rpcna = await scrapeRpcna().catch((e) => console.log(e));
+			if (rpcna) results = [...results, ...rpcna.results];
 
-			const { results: arp } = await scrapeArp().catch((e) => console.log(e));
-			if (arp) results = [...results, ...arp];
+			const arp = await scrapeArp().catch((e) => console.log(e));
+			if (arp) results = [...results, ...arp.results];
 
-			const { results: frcna } = await scrapeFrcna().catch((e) => console.log(e));
-			if (frcna) results = [...results, ...frcna];
+			const frcna = await scrapeFrcna().catch((e) => console.log(e));
+			if (frcna) results = [...results, ...frcna.results];
 
-			const { results: hrc } = await scrapeHrc().catch((e) => console.log(e));
-			if (hrc) results = [...results, ...hrc];
+			const hrc = await scrapeHrc().catch((e) => console.log(e));
+			if (hrc) results = [...results, ...hrc.results];
 
-			const { results: pca } = await scrapePca().catch((e) => console.log(e));
-			if (pca) results = [...results, ...pca];
+			const pca = await scrapePca().catch((e) => console.log(e));
+			if (pca) results = [...results, ...pca.results];
 
-			const { results: urcna } = await scrapeUrcna().catch((e) => console.log(e));
-			if (urcna) results = [...results, ...urcna];
+			const urcna = await scrapeUrcna().catch((e) => console.log(e));
+			if (urcna) results = [...results, ...urcna.results];
 
-			const { results: rcus } = await scrapeRcus().catch((e) => console.log(e));
-			if (rcus) results = [...results, ...rcus];
+			const rcus = await scrapeRcus().catch((e) => console.log(e));
+			if (rcus) results = [...results, ...rcus.results];
 			
 			console.log(`All scrapers completed with ${ results.length } results...`);
 			await db.updateDb(results).catch(e => console.log(e));
